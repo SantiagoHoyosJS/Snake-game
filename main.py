@@ -7,8 +7,7 @@ root = Tk()
 root.iconbitmap('C:/Users/santi/OneDrive/Escritorio/snake game/snake-icon.ico')
 
 
-def main():
-    
+def main():   
     login()
     game()
 
@@ -75,7 +74,7 @@ def game():
 
 
 def check_login(usarname, password):
-    with open('credentials.csv', newline='') as c:
+    with open('credentials.csv', 'r', newline='') as c:
         reader = csv.reader(c)
         for row in reader:
             if row[0] == usarname:
@@ -85,11 +84,59 @@ def check_login(usarname, password):
                 else:
                     status_label = Label(root, text="Wrong password", bg='black', fg='white')
                     status_label.pack()
+                    username_entry.delete(0, END)
+                    password_entry.delete(0, END)
                     return
         status_label = Label(root, text="This username does not exist", bg='black', fg='white')
         status_label.pack()
-        print('hola')
+        username_entry.delete(0, END)
+        password_entry.delete(0, END)
         return
+
+def register(username, password, top):
+    with open('credentials.csv', 'r', newline='') as c:
+        reader = csv.reader(c)
+        for row in reader:
+            if username in row:
+                status_label = Label(top, text="This username is already taken", bg='black', fg='white')
+                status_label.pack()
+                username_entry.delete(0, END)
+                password_entry.delete(0, END)
+                return
+    with open('credentials.csv', 'a', newline='') as c:
+        writer = csv.writer(c)
+        row = [username, password]
+        writer.writerow(row)
+    top.destroy()
+
+def signup_window():
+
+    top = Toplevel()
+    # Create a new Tkinter window
+    top.title("Snake Game")
+    top.geometry("600x600+400+100")
+    top.configure(background="black")
+
+    # Create a label for the username field
+    username_label = Label(top, text="Username:", bg='black', fg='white')
+    username_label.pack()
+
+    # Create an entry field for the username
+    global username_entry; username_entry = Entry(top)
+    username_entry.pack()
+
+    # Create a label for the password field
+    password_label = Label(top, text="Password:", bg='black', fg='white')
+    password_label.pack()
+
+    # Create an entry field for the password
+    global password_entry; password_entry = Entry(top, show="*")
+    password_entry.pack()
+    # Create a button to submit the login credentials
+    submit_button = Button(top, text="Sign up", command= lambda: register(username_entry.get(), password_entry.get(), top))
+    submit_button.pack()
+    username_entry.delete(0, END)
+    password_entry.delete(0, END)
 
 def login():
     # Create a new Tkinter window
@@ -102,7 +149,7 @@ def login():
     username_label.pack()
 
     # Create an entry field for the username
-    username_entry = Entry(root)
+    global username_entry; username_entry = Entry(root)
     username_entry.pack()
 
     # Create a label for the password field
@@ -110,12 +157,14 @@ def login():
     password_label.pack()
 
     # Create an entry field for the password
-    password_entry = Entry(root, show="*")
+    global password_entry; password_entry = Entry(root, show="*")
     password_entry.pack()
 
     # Create a button to submit the login credentials
     submit_button = Button(root, text="Login", command= lambda: check_login(username_entry.get(), password_entry.get()))
     submit_button.pack()
+
+    signup = Button(root, text="Create new account", command=signup_window).pack()
 
     # Run the main event loop
     root.mainloop()
