@@ -1,34 +1,39 @@
-import pygame
+import tkinter as tk
 
-# Initialize Pygame
-pygame.init()
+def check_login():
+    # Replace with actual login authentication logic
+    if username_entry.get() == "admin" and password_entry.get() == "password":
+        status_label.config(text="Login Successful", fg="green")
+    else:
+        status_label.config(text="Invalid Credentials", fg="red")
 
-# Set the dimensions of the screen
-screen_width = 800
-screen_height = 600
-screen = pygame.display.set_mode((screen_width, screen_height))
+# Create a new Tkinter window
+root = tk.Tk()
+root.title("Login Page")
+root.geometry("800x600")
+# Create a label for the username field
+username_label = tk.Label(root, text="Username:")
+username_label.pack()
 
-# Load the image that will be used as a tile
-tile_image = pygame.image.load('tile.png')
+# Create an entry field for the username
+username_entry = tk.Entry(root)
+username_entry.pack()
 
-# Get the dimensions of the tile image
-tile_width, tile_height = tile_image.get_size()
+# Create a label for the password field
+password_label = tk.Label(root, text="Password:")
+password_label.pack()
 
-# Calculate the number of tiles needed to fill the screen
-num_tiles_x = screen_width // tile_width + 1
-num_tiles_y = screen_height // tile_height + 1
+# Create an entry field for the password
+password_entry = tk.Entry(root, show="*")
+password_entry.pack()
 
-# Tile the image across the screen
-for y in range(num_tiles_y):
-    for x in range(num_tiles_x):
-        screen.blit(tile_image, (x * tile_width, y * tile_height))
+# Create a button to submit the login credentials
+submit_button = tk.Button(root, text="Login", command=check_login)
+submit_button.pack()
 
-# Update the screen
-pygame.display.flip()
+# Create a label to display the login status
+status_label = tk.Label(root, text="")
+status_label.pack()
 
-# Run the game loop
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+# Run the main event loop
+root.mainloop()
