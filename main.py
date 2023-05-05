@@ -84,13 +84,13 @@ def check_login(usarname, password):
                 else:
                     status_label = Label(root, text="Wrong password", bg='black', fg='white')
                     status_label.pack()
-                    username_entry.delete(0, END)
-                    password_entry.delete(0, END)
+                    username_entry_l.delete(0, END)
+                    password_entry_l.delete(0, END)
                     return
         status_label = Label(root, text="This username does not exist", bg='black', fg='white')
         status_label.pack()
-        username_entry.delete(0, END)
-        password_entry.delete(0, END)
+        username_entry_l.delete(0, END)
+        password_entry_l.delete(0, END)
         return
 
 def register(username, password, top):
@@ -100,8 +100,8 @@ def register(username, password, top):
             if username in row:
                 status_label = Label(top, text="This username is already taken", bg='black', fg='white')
                 status_label.pack()
-                username_entry.delete(0, END)
-                password_entry.delete(0, END)
+                username_entry_s.delete(0, END)
+                password_entry_s.delete(0, END)
                 return
     with open('credentials.csv', 'a', newline='') as c:
         writer = csv.writer(c)
@@ -122,21 +122,21 @@ def signup_window():
     username_label.pack()
 
     # Create an entry field for the username
-    global username_entry; username_entry = Entry(top)
-    username_entry.pack()
+    global username_entry_s; username_entry_s = Entry(top)
+    username_entry_s.pack()
 
     # Create a label for the password field
     password_label = Label(top, text="Password:", bg='black', fg='white')
     password_label.pack()
 
     # Create an entry field for the password
-    global password_entry; password_entry = Entry(top, show="*")
-    password_entry.pack()
+    global password_entry_s; password_entry_s = Entry(top, show="*")
+    password_entry_s.pack()
     # Create a button to submit the login credentials
-    submit_button = Button(top, text="Sign up", command= lambda: register(username_entry.get(), password_entry.get(), top))
+    submit_button = Button(top, text="Sign up", command= lambda: register(username_entry_s.get(), password_entry_s.get(), top))
     submit_button.pack()
-    username_entry.delete(0, END)
-    password_entry.delete(0, END)
+    username_entry_s.delete(0, END)
+    password_entry_s.delete(0, END)
 
 def login():
     # Create a new Tkinter window
@@ -149,19 +149,19 @@ def login():
     username_label.pack()
 
     # Create an entry field for the username
-    global username_entry; username_entry = Entry(root)
-    username_entry.pack()
+    global username_entry_l; username_entry_l = Entry(root)
+    username_entry_l.pack()
 
     # Create a label for the password field
     password_label = Label(root, text="Password:", bg='black', fg='white')
     password_label.pack()
 
     # Create an entry field for the password
-    global password_entry; password_entry = Entry(root, show="*")
-    password_entry.pack()
+    global password_entry_l; password_entry_l = Entry(root, show="*")
+    password_entry_l.pack()
 
     # Create a button to submit the login credentials
-    submit_button = Button(root, text="Login", command= lambda: check_login(username_entry.get(), password_entry.get()))
+    submit_button = Button(root, text="Login", command= lambda: check_login(username_entry_l.get(), password_entry_l.get()))
     submit_button.pack()
 
     signup = Button(root, text="Create new account", command=signup_window).pack()
