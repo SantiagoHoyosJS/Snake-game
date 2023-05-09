@@ -5,13 +5,14 @@ import csv
 
 root = Tk()
 root.iconbitmap('C:/Users/santi/OneDrive/Escritorio/snake game/snake-icon.ico')
-
+pg.init()
 
 def main():   
     login()
     game()
 
 def game():
+    game_font = pg.font.Font(None, 25)
     WINDOW = 600
     TILE_SIZE = 50
     RANGE = (TILE_SIZE // 2, WINDOW - TILE_SIZE // 2, TILE_SIZE)
@@ -27,6 +28,7 @@ def game():
     screen = pg.display.set_mode([WINDOW]*2)
     clock = pg.time.Clock()
     dirs = {pg.K_w: 1, pg.K_s: 1, pg.K_a: 1, pg.K_d: 1}
+    score = 0
 
     while True:
         for event in pg.event.get():
@@ -53,10 +55,12 @@ def game():
             snake.center, food.center = get_random_position(), get_random_position()
             length, snake_dir = 1, (0,0)
             segments = [snake.copy()]
+            score = 0
         #check food
         if snake.center == food.center:
             food.center = get_random_position()
             length += 1
+            score += 1
         #draw food
         pg.draw.rect(screen, 'red', food)
         # draw snake
@@ -68,8 +72,17 @@ def game():
             snake.move_ip(snake_dir)
             segments.append(snake.copy())
             segments = segments[-length:]
+        
+        score_text = str(score)
+        score_surface = game_font.render(score_text, True, (255,255,255))
+        score_x = 20
+        score_y = 20
+        score_rect = score_surface.get_rect(center = (score_x, score_y))
+        screen.blit(score_surface, score_rect)
+
         pg.display.flip()
         clock.tick(60)
+        print(score)
 
 
 
