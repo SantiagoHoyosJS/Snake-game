@@ -7,8 +7,10 @@ import random
 root = Tk()
 root.iconbitmap('snake-icon.ico')
 pg.init()
-a= False
-q = Toplevel()
+q = Toplevel(root)
+q.title("Snake Game")
+q.geometry("400x400")
+q.configure(background="black")
 q.withdraw()
 questions = {'¿Cuál es la diferencia principal entre una lista y una lista doblemente enlazada?':'a','¿Qué es una multilista?':'c','¿Qué es una operación pop en una lista doblemente enlazada?':'c','¿Qué es una lista circular?':'b','¿Cuál es la diferencia entre una lista simple y una lista circular?':'b','¿Qué es una lista doblemente enlazada circular?':'b'}
 options = {'¿Cuál es la diferencia principal entre una lista y una lista doblemente enlazada?':
@@ -48,7 +50,7 @@ options = {'¿Cuál es la diferencia principal entre una lista y una lista doble
 def main():   
     login()
 
-def game():
+def game(score):
     game_font = pg.font.Font(None, 25)
     WINDOW = 600
     TILE_SIZE = 50
@@ -65,12 +67,8 @@ def game():
     screen = pg.display.set_mode([WINDOW]*2)
     clock = pg.time.Clock()
     dirs = {pg.K_w: 1, pg.K_s: 1, pg.K_a: 1, pg.K_d: 1}
-    score = 0
 
     while True:
-        q.title("Snake Game")
-        q.geometry("400x400")
-        q.configure(background="black")
         q.withdraw()
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -93,8 +91,8 @@ def game():
         #check borders and selfeating
         self_eating = pg.Rect.collidelist(snake, segments[:-1]) != -1
         if snake.left < 0 or snake.right > WINDOW or snake.top < 0 or snake.bottom > WINDOW or self_eating:
-            #q.deiconify()
-            #ranquestion(q)
+            ranquestion(score)
+            #check_ans(question_label, ans)
             snake.center, food.center = get_random_position(), get_random_position()
             length, snake_dir = 1, (0,0)
             segments = [snake.copy()]
@@ -124,36 +122,42 @@ def game():
         pg.display.flip()
         clock.tick(60)
 
-def ranquestion(q):
+def ranquestion(score):
+    q.deiconify()
     p=getRandomQ()
     # Create a label for the username field
-    question_label = Label(q, text=p, bg='black', fg='white', wraplength=200)
+    global question_label; question_label = Label(q, text=p, bg='black', fg='white', wraplength=200)
     question_label.pack()
 
 
     # Create an entry field for answear
-    entry_l = Entry(q)
-    entry_l.pack()
+    global ans; ans = Entry(q)
+    ans.pack()
 
     #display options
     for op in options[p]:
         Label(q, text=op, bg='black', fg='white', wraplength=200).pack()
 
     #button to send answear
-    submit_button = Button(q, text="ans", command= lambda: check_ans(p,entry_l.get().lower()))
+    submit_button = Button(q, text="ans", command= lambda: check_ans(p,ans.get().lower(),score))
     submit_button.pack()   
     #return if the question was answeared correctly or not 
-    q.mainloop()
+    root.mainloop()
 
 
-def check_ans(question,ans):
+
+def check_ans(question,ans,score):
     if questions[question] == ans:
         print('yes')
-        q.destroy()
+        for widget in q.winfo_children():
+            widget.destroy()
+        game(score)
         return True
     else:
         print('no')
-        q.destroy()
+        for widget in q.winfo_children():
+            widget.destroy()
+        game(0)
         return False
 
 def getRandomQ():
@@ -168,7 +172,7 @@ def check_login(usarname, password):
             if row[0] == usarname:
                 if row[1] == password:
                     root.withdraw()
-                    game()
+                    game(0)
                     return
                 else:
                     status_label = Label(root, text="Wrong password", bg='black', fg='white')
