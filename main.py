@@ -1,6 +1,7 @@
 import pygame as pg
 from random import randrange
 from tkinter import *
+from tkinter import ttk
 import csv
 import random
 
@@ -191,31 +192,31 @@ def getRandomQ():
     return random_Q
 
 def add_or_update_score(username, score):
-    # Open the csv file in read-write mode
-    with open('scores.csv', 'r+') as f:
-        # Create a csv reader object
-        reader = csv.reader(f)
+  # Open the scores.csv file in read-write mode.
+  with open('scores.csv', 'r+') as f:
+    # Read the contents of the file into a list.
+    lines = f.readlines()
 
-        # Create a dictionary to store the data
-        data = {}
+    # Find the line that contains the username.
+    line_index = -1
+    for i, line in enumerate(lines):
+      if username in line:
+        line_index = i
+        break
 
-        # Iterate over the rows in the csv file
-        for row in reader:
-            # Add the row to the dictionary
-            data[row[0]] = row[1]
+    # If the line was not found, add a new line with the username and score.
+    if line_index == -1:
+      lines.append('%s,%d\n' % (username, score))
 
-        # Check if the username exists in the database
-        if username in data:
-            # If the username exists, update the score
-            data[username] = max(data[username], score)
-        else:
-            # If the username does not exist, add it to the database with the given score
-            data[username] = score
+    # If the line was found, update the score.
+    else:
+      score_str = lines[line_index].split(',')[1]
+      if int(score) > int(score_str):
+        lines[line_index] = '%s,%d\n' % (username, score)
 
-        # Write the data to the csv file
-        writer = csv.writer(f)
-        for key, value in data.items():
-            writer.writerow([key, value])
+    # Write the contents of the list back to the file.
+    f.seek(0)
+    f.writelines(lines)
 
 def check_login(usarname, password):
     with open('credentials.csv', 'r', newline='') as c:
@@ -311,10 +312,39 @@ def login():
     
 
     signup = Button(root, text="Create new account", command=signup_window).pack(padx=10, pady=10)
+    scores = Button(root, text="See recorded scores", command=scores_window).pack(padx=10, pady=10)
 
 
     # Run the main event loop
     root.mainloop()
+
+def scores_window():
+    # Create the window
+    top = Toplevel()
+
+    # Create a label for the scores table
+    label = Label(top, text="Scores")
+    label.pack()
+
+    # Create a Treeview widget for the scores table
+    tree = ttk.Treeview(top, columns=("Name", "Score"))
+    tree.pack()
+
+    # Set the column headings
+    tree.heading("Name", text="Name", anchor=CENTER)
+    tree.heading("Score", text="HighScore", anchor=CENTER)
+
+    with open("scores.csv", "r") as f:
+        # Create a csv reader object
+        reader = csv.reader(f)
+
+        # Iterate over the rows in the csv file
+        for row in reader:
+            # Only add the name and score columns to the treeview
+            tree.insert("", "end", values=(row[0], row[1]))
+    
+    tree.column("Name", width=50)
+    tree.column("Score", width=50)
 
 if __name__ == "__main__":
     main()    
