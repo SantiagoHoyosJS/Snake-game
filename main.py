@@ -181,6 +181,7 @@ def check_ans(question,ans,score):
         print('no')
         for widget in q.winfo_children():
             widget.destroy()
+        add_or_update_score(username_entry_l.get(),score)
         game(0)
         return False
 
@@ -188,6 +189,33 @@ def getRandomQ():
     # Get a random key-value pair from the dictionary
     random_Q, random_A = random.choice(list(questions.items()))
     return random_Q
+
+def add_or_update_score(username, score):
+    # Open the csv file in read-write mode
+    with open('scores.csv', 'r+') as f:
+        # Create a csv reader object
+        reader = csv.reader(f)
+
+        # Create a dictionary to store the data
+        data = {}
+
+        # Iterate over the rows in the csv file
+        for row in reader:
+            # Add the row to the dictionary
+            data[row[0]] = row[1]
+
+        # Check if the username exists in the database
+        if username in data:
+            # If the username exists, update the score
+            data[username] = max(data[username], score)
+        else:
+            # If the username does not exist, add it to the database with the given score
+            data[username] = score
+
+        # Write the data to the csv file
+        writer = csv.writer(f)
+        for key, value in data.items():
+            writer.writerow([key, value])
 
 def check_login(usarname, password):
     with open('credentials.csv', 'r', newline='') as c:
