@@ -10,7 +10,7 @@ pg.init()
 q = Toplevel(root)
 q.title("Snake Game")
 q.geometry("400x500+450+100")
-q.configure(background="black")
+q.configure(background='#81db74')
 q.withdraw()
 questions = {'¿Cuál es la diferencia principal entre una lista y una lista doblemente enlazada?':'a',
              '¿Qué es una multilista?':'c','¿Qué es una operación pop en una lista doblemente enlazada?':'c','¿Qué es una lista circular?':'b',
@@ -117,7 +117,6 @@ def game(score):
         self_eating = pg.Rect.collidelist(snake, segments[:-1]) != -1
         if snake.left < 0 or snake.right > WINDOW or snake.top < 0 or snake.bottom > WINDOW or self_eating:
             ranquestion(score)
-            #check_ans(question_label, ans)
             snake.center, food.center = get_random_position(), get_random_position()
             length, snake_dir = 1, (0,0)
             segments = [snake.copy()]
@@ -151,7 +150,7 @@ def ranquestion(score):
     q.deiconify()
     p=getRandomQ()
     # Create a label for the username field
-    global question_label; question_label = Label(q, text=p, bg='black', fg='white', wraplength=200)
+    global question_label; question_label = Label(q, text=p, bg='#81db74', fg='black', wraplength=200)
     question_label.pack(padx=10, pady=10)
 
 
@@ -161,7 +160,7 @@ def ranquestion(score):
 
     #display options
     for op in options[p]:
-        Label(q, text=op, bg='black', fg='white', wraplength=200).pack(padx=5, pady=5)
+        Label(q, text=op, bg='#81db74', fg='black', wraplength=200).pack(padx=5, pady=5)
 
     #button to send answear
     submit_button = Button(q, text="Responder", command= lambda: check_ans(p,ans.get().lower(),score))
@@ -200,12 +199,12 @@ def check_login(usarname, password):
                     game(0)
                     return
                 else:
-                    status_label = Label(root, text="Wrong password", bg='black', fg='white')
+                    status_label = Label(root, text="Wrong password", bg='#81db74', fg='black')
                     status_label.pack()
                     username_entry_l.delete(0, END)
                     password_entry_l.delete(0, END)
                     return
-        status_label = Label(root, text="This username does not exist", bg='black', fg='white')
+        status_label = Label(root, text="This username does not exist",bg='#81db74', fg='black')
         status_label.pack()
         username_entry_l.delete(0, END)
         password_entry_l.delete(0, END)
@@ -216,7 +215,7 @@ def register(username, password, top):
         reader = csv.reader(c)
         for row in reader:
             if username in row:
-                status_label = Label(top, text="This username is already taken", bg='black', fg='white')
+                status_label = Label(top, text="This username is already taken", bg='#81db74', fg='black')
                 status_label.pack()
                 username_entry_s.delete(0, END)
                 password_entry_s.delete(0, END)
@@ -233,10 +232,10 @@ def signup_window():
     # Create a new Tkinter window
     top.title("Snake Game")
     top.geometry("600x600+400+100")
-    top.configure(background="black")
+    top.configure(background="#81db74")
 
     # Create a label for the username field
-    username_label = Label(top, text="Username:", bg='black', fg='white')
+    username_label = Label(top, text="Username:", bg='#81db74', fg='black')
     username_label.pack(padx=10, pady=10)
 
     # Create an entry field for the username
@@ -244,7 +243,7 @@ def signup_window():
     username_entry_s.pack(padx=10, pady=10)
 
     # Create a label for the password field
-    password_label = Label(top, text="Password:", bg='black', fg='white')
+    password_label = Label(top, text="Password:", bg='#81db74', fg='black')
     password_label.pack(padx=10, pady=10)
 
     # Create an entry field for the password
@@ -260,10 +259,10 @@ def login():
     # Create a new Tkinter window
     root.title("Snake Game")
     root.geometry("600x600+400+100")
-    root.configure(background="black")
+    root.configure(background="#81db74")
 
     # Create a label for the username field
-    username_label = Label(root, text="Username:", bg='black', fg='white')
+    username_label = Label(root, text="Username:", bg='#81db74', fg='black')
     username_label.pack(padx=10, pady=10)
 
     # Create an entry field for the username
@@ -271,7 +270,7 @@ def login():
     username_entry_l.pack(padx=10, pady=10)
 
     # Create a label for the password field
-    password_label = Label(root, text="Password:", bg='black', fg='white')
+    password_label = Label(root, text="Password:", bg='#81db74', fg='black')
     password_label.pack(padx=10, pady=10)
 
     # Create an entry field for the password
