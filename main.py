@@ -49,10 +49,10 @@ options = {'¿Cuál es la diferencia principal entre una lista y una lista doble
 'B) Una lista en la que cada elemento tiene dos punteros y el primer elemento apunta al último.',
 'C) Una lista en la que cada elemento tiene cuatro punteros y está conectado a todos los demás elementos.',
 'D) Una lista en la que cada elemento tiene un puntero y está conectado a todos los demás elementos.'],
-'Uno de los principales usos de las estructuras de datos tipo pila es: ':
+'Uno de los principales usos de las estructuras de datos tipo pila es:':
 [ 'A. Control de problemas matemáticos', 
  'B. tipo Tratamiento de expresiones matemáticas ',  
- 'C. Almacenar datos de cualquier',
+ 'C. Almacenar datos de cualquier tipo',
  'D. Ingresar datos y conservar el orden de llegada'],
  'Una estructura lineal tipo Lista enlazada se puede definir como: ': 
  ['A. Una colección de nodos o elementos en donde cada uno contiene datos y un enlace al siguiente nodo', 
