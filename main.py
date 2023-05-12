@@ -9,7 +9,7 @@ root.iconbitmap('snake-icon.ico')
 pg.init()
 q = Toplevel(root)
 q.title("Snake Game")
-q.geometry("400x400")
+q.geometry("400x500+450+100")
 q.configure(background="black")
 q.withdraw()
 questions = {'¿Cuál es la diferencia principal entre una lista y una lista doblemente enlazada?':'a','¿Qué es una multilista?':'c','¿Qué es una operación pop en una lista doblemente enlazada?':'c','¿Qué es una lista circular?':'b','¿Cuál es la diferencia entre una lista simple y una lista circular?':'b','¿Qué es una lista doblemente enlazada circular?':'b'}
@@ -127,20 +127,20 @@ def ranquestion(score):
     p=getRandomQ()
     # Create a label for the username field
     global question_label; question_label = Label(q, text=p, bg='black', fg='white', wraplength=200)
-    question_label.pack()
+    question_label.pack(padx=10, pady=10)
 
 
     # Create an entry field for answear
     global ans; ans = Entry(q)
-    ans.pack()
+    ans.pack(padx=10, pady=10)
 
     #display options
     for op in options[p]:
-        Label(q, text=op, bg='black', fg='white', wraplength=200).pack()
+        Label(q, text=op, bg='black', fg='white', wraplength=200).pack(padx=5, pady=5)
 
     #button to send answear
-    submit_button = Button(q, text="ans", command= lambda: check_ans(p,ans.get().lower(),score))
-    submit_button.pack()   
+    submit_button = Button(q, text="Responder", command= lambda: check_ans(p,ans.get().lower(),score))
+    submit_button.pack(padx=10, pady=10)   
     #return if the question was answeared correctly or not 
     root.mainloop()
 
@@ -212,22 +212,22 @@ def signup_window():
 
     # Create a label for the username field
     username_label = Label(top, text="Username:", bg='black', fg='white')
-    username_label.pack()
+    username_label.pack(padx=10, pady=10)
 
     # Create an entry field for the username
     global username_entry_s; username_entry_s = Entry(top)
-    username_entry_s.pack()
+    username_entry_s.pack(padx=10, pady=10)
 
     # Create a label for the password field
     password_label = Label(top, text="Password:", bg='black', fg='white')
-    password_label.pack()
+    password_label.pack(padx=10, pady=10)
 
     # Create an entry field for the password
     global password_entry_s; password_entry_s = Entry(top, show="*")
-    password_entry_s.pack()
+    password_entry_s.pack(padx=10, pady=10)
     # Create a button to submit the login credentials
     submit_button = Button(top, text="Sign up", command= lambda: register(username_entry_s.get(), password_entry_s.get(), top))
-    submit_button.pack()
+    submit_button.pack(padx=10, pady=10)
     username_entry_s.delete(0, END)
     password_entry_s.delete(0, END)
 
@@ -239,27 +239,27 @@ def login():
 
     # Create a label for the username field
     username_label = Label(root, text="Username:", bg='black', fg='white')
-    username_label.pack()
+    username_label.pack(padx=10, pady=10)
 
     # Create an entry field for the username
     global username_entry_l; username_entry_l = Entry(root)
-    username_entry_l.pack()
+    username_entry_l.pack(padx=10, pady=10)
 
     # Create a label for the password field
     password_label = Label(root, text="Password:", bg='black', fg='white')
-    password_label.pack()
+    password_label.pack(padx=10, pady=10)
 
     # Create an entry field for the password
     global password_entry_l; password_entry_l = Entry(root, show="*")
-    password_entry_l.pack()
+    password_entry_l.pack(padx=10, pady=10)
 
     # Create a button to submit the login credentials
     submit_button = Button(root, text="Login", command= lambda: check_login(username_entry_l.get(), password_entry_l.get()))
-    submit_button.pack()
+    submit_button.pack(padx=10, pady=10)
     
 
-    signup = Button(root, text="Create new account", command=signup_window).pack()
-    
+    signup = Button(root, text="Create new account", command=signup_window).pack(padx=10, pady=10)
+
 
     # Run the main event loop
     root.mainloop()
