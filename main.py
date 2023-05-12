@@ -12,7 +12,13 @@ q.title("Snake Game")
 q.geometry("400x500+450+100")
 q.configure(background="black")
 q.withdraw()
-questions = {'¿Cuál es la diferencia principal entre una lista y una lista doblemente enlazada?':'a','¿Qué es una multilista?':'c','¿Qué es una operación pop en una lista doblemente enlazada?':'c','¿Qué es una lista circular?':'b','¿Cuál es la diferencia entre una lista simple y una lista circular?':'b','¿Qué es una lista doblemente enlazada circular?':'b'}
+questions = {'¿Cuál es la diferencia principal entre una lista y una lista doblemente enlazada?':'a',
+             '¿Qué es una multilista?':'c','¿Qué es una operación pop en una lista doblemente enlazada?':'c','¿Qué es una lista circular?':'b',
+             '¿Cuál es la diferencia entre una lista simple y una lista circular?':'b','¿Qué es una lista doblemente enlazada circular?':'b',
+             'Uno de los principales usos de las estructuras de datos tipo pila es:':'b',
+             'Una estructura lineal tipo Lista enlazada se puede definir como: ':'a',
+             'El valor almacenado en una variable de tipo apuntador es: ':'a',
+             'De las siguientes opciones identifique el tipo de lista que cumpla con las siguientes características. Es un tipo de lista lineal en la que cada nodo tiene dos enlaces, uno que apunta al nodo siguiente, y otro que apunta al anterior, adicionalmente el último nodo de la lista apunta al primer nodo.':'a'}
 options = {'¿Cuál es la diferencia principal entre una lista y una lista doblemente enlazada?':
 ['A) Las listas simples solo pueden ser recorridas en una dirección, mientras que las listas doblemente enlazadas pueden ser recorridas en ambas direcciones.',
 'B) Las listas doblemente enlazadas tienen un nodo central, mientras que las listas solo tienen nodos en extremos.',
@@ -42,9 +48,28 @@ options = {'¿Cuál es la diferencia principal entre una lista y una lista doble
 ['A) Una lista en la que cada elemento tiene dos punteros y el último elemento apunta al primero.',
 'B) Una lista en la que cada elemento tiene dos punteros y el primer elemento apunta al último.',
 'C) Una lista en la que cada elemento tiene cuatro punteros y está conectado a todos los demás elementos.',
-'D) Una lista en la que cada elemento tiene un puntero y está conectado a todos los demás elementos.']
+'D) Una lista en la que cada elemento tiene un puntero y está conectado a todos los demás elementos.'],
+'Uno de los principales usos de las estructuras de datos tipo pila es: ':
+[ 'A. Control de problemas matemáticos', 
+ 'B. tipo Tratamiento de expresiones matemáticas ',  
+ 'C. Almacenar datos de cualquier',
+ 'D. Ingresar datos y conservar el orden de llegada'],
+ 'Una estructura lineal tipo Lista enlazada se puede definir como: ': 
+ ['A. Una colección de nodos o elementos en donde cada uno contiene datos y un enlace al siguiente nodo', 
+ 'B. Es una colección de nodos en donde cada uno tiene un enlace que apunta a cualquier otro nodo',
+ 'C. Un tipo de dato numérico ordenados secuencialmente unidos por un enlace', 
+ 'D. Una colección ordenada de elementos secuencialmente'],
+ 'El valor almacenado en una variable de tipo apuntador es: ':
+ ['A.  Una dirección de memoria',
+  'B.  Un dato de tipo int',
+  'C. El contenido de otra variable de diferente tipo', 
+  'D. Un dato de tipo char'],
+  'De las siguientes opciones identifique el tipo de lista que cumpla con las siguientes características. Es un tipo de lista lineal en la que cada nodo tiene dos enlaces, uno que apunta al nodo siguiente, y otro que apunta al anterior, adicionalmente el último nodo de la lista apunta al primer nodo.':
+  ['A. Lista doblemente enlazada',
+ 'B. Lista contigua',
+ 'C. Lista lineal',
+ 'D. Lista circular']
 }
-
 
 
 def main():   
